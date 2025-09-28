@@ -1,3 +1,6 @@
+
+#COOKING 👨🏽‍🍳
+
 <h1 align="center">Hi 👋, I'm Nimalan P</h1>
 <h3 align="center">Aspiring Data Scientist | AI & ML Enthusiast | Researcher</h3>
 <h6 align="center">Hello, I am Nimalan P, an aspiring Data Scientist based in India. I work on AI & ML projects, predictive modeling, and data analysis. I enjoy building research-driven solutions and contributing to collaborative projects. Feel free to connect with me to discuss projects, internships, or mentorship opportunities.</h6>
