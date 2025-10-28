@@ -1,4 +1,3 @@
-
 #COOKING 👨🏽‍🍳
 
 <h1 align="center">Hi 👋, I'm Nimalan P</h1>
@@ -6,7 +5,7 @@
 <h6 align="center">Hello, I am Nimalan P, an aspiring Data Scientist based in India. I work on AI & ML projects, predictive modeling, and data analysis. I enjoy building research-driven solutions and contributing to collaborative projects. Feel free to connect with me to discuss projects, internships, or mentorship opportunities.</h6>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=3000&pause=1000&center=true&width=435&lines=Data+Scientist;Python+%7C+Machine+Learning+%7C+AI;Research+%7C+Deep+Learning+%7C+Analytics" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=3000&pause=1000&center=true&width=435&lines=Data+Scientist;Python+%7C+Machine+Learning;AI+Researcher" alt="Typing SVG" />
 </p>
 
 <div align="center">
@@ -19,10 +18,10 @@
 
 ### 👨‍💻 About Me
 
-- 🔨 I’m currently working on **AI & ML projects using Python and YOLOv8**
-- 🌱 Exploring **Data Science, Deep Learning, Predictive Modeling, and Kaggle Competitions**
-- 📫 Reach me at: **[LinkedIn / Portfolio]**
-- 🎯 Fun fact: *I love turning data into insights!*
+* 🔨 I’m currently working on **AI & ML projects using Python and YOLOv8**
+* 🌱 Exploring **Data Science, Deep Learning, Predictive Modeling, and Kaggle Competitions**
+* 📫 Reach me at: **[LinkedIn / Portfolio]**
+* 🎯 Fun fact: *I love turning data into insights!*
 
 ---
 
@@ -38,34 +37,41 @@
 ### 💻 Tech Stack
 
 #### 🚀 Languages
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge\&logo=r\&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)
 
 #### 🧠 ML & Data Tools
-![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-ffffff?style=for-the-badge&logo=matplotlib&logoColor=black)
-![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![YOLO](https://img.shields.io/badge/YOLOv8-FF6600?style=for-the-badge)
+
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge\&logo=numpy\&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge\&logo=pandas\&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-ffffff?style=for-the-badge\&logo=matplotlib\&logoColor=black)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge\&logo=scikit-learn\&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge\&logo=tensorflow\&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge\&logo=pytorch\&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-2C3E50?style=for-the-badge\&logo=chainlink\&logoColor=white)
 
 #### ☁️ Tools & Platforms
-![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)
-![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+
+![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge\&logo=kaggle\&logoColor=white)
+![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge\&logo=googlecolab\&logoColor=white)
+![Azure](https://img.shields.io/badge/Microsoft%20Azure-0078D4?style=for-the-badge\&logo=microsoftazure\&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge\&logo=git\&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge\&logo=github\&logoColor=white)
 
 ---
 
 ### 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=nimalan-parameswaran&theme=gruvbox&show_icons=true&hide_border=false&count_private=true" height="165px"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nimalan-parameswaran&theme=gruvbox&layout=compact&hide_border=false" height="165px"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nimalan-parameswaran&theme=gruvbox&layout=compact&hide_border=true" height="165px"/>
 </p>
-
 <p align="center">
-  <img src="https://nirzak-streak-stats.vercel.app/?user=nimalan-parameswaran&theme=gruvbox&hide_border=false" />
+  <img src="https://github-readme-stats.vercel.app/api?username=nimalan-parameswaran&theme=gruvbox&show_icons=true&hide_border=false&count_private=true" height="165px"/>
+</p>
+<p align="center">
+  <img src="https://nirzak-streak-stats.vercel.app/?user=nimalan-parameswaran&theme=gruvbox&hide_border=false" height="165px" />
 </p>
 
 ---
