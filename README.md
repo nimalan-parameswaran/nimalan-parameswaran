@@ -14,35 +14,16 @@
   </a>
 </div>
 
----
-
-### 👨‍💻 About Me
-
-* 🔨 I’m currently working on **AI & ML projects using Python and YOLOv8**
-* 🌱 Exploring **Data Science, Deep Learning, Predictive Modeling, and Kaggle Competitions**
-* 📫 Reach me at: **[LinkedIn / Portfolio]**
-* 🎯 Fun fact: *I love turning data into insights!*
-
----
-
-### 🌐 Connect With Me
-
-<p align="left">
-  <a href="https://www.linkedin.com/in/nimalan-parameswaran" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-  <a href="mailto:nimalan936@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=nimalan-parameswaran&color=blue&style=flat">
 </p>
 
 ---
 
 ### 💻 Tech Stack
-
-#### 🚀 Languages
-
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
 ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge\&logo=r\&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)
-
-#### 🧠 ML & Data Tools
 
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge\&logo=numpy\&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge\&logo=pandas\&logoColor=white)
@@ -51,8 +32,6 @@
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge\&logo=tensorflow\&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge\&logo=pytorch\&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-2C3E50?style=for-the-badge\&logo=chainlink\&logoColor=white)
-
-#### ☁️ Tools & Platforms
 
 ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge\&logo=kaggle\&logoColor=white)
 ![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge\&logo=googlecolab\&logoColor=white)
@@ -63,8 +42,7 @@
 ---
 
 ### 📊 GitHub Stats
-
-<p align="center">
+<!-- <p align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nimalan-parameswaran&theme=gruvbox&layout=compact&hide_border=true" height="165px"/>
 </p>
 <p align="center">
@@ -72,6 +50,12 @@
 </p>
 <p align="center">
   <img src="https://nirzak-streak-stats.vercel.app/?user=nimalan-parameswaran&theme=gruvbox&hide_border=false" height="165px" />
+</p> -->
+<p align="center">
+<a href="https://github.com/nimalan-parameswaran">
+  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=nimalan-parameswaran&show_icons=true&theme=algolia&include_all_commits=true&count_private=true"/>
+  <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=nimalan-parameswaran&layout=compact&langs_count=8&theme=algolia"/>
+</a>
 </p>
 
 ---
@@ -83,3 +67,12 @@
 </p>
 
 ---
+
+---
+
+### 🌐 Connect With Me
+
+<p align="left">
+  <a href="https://www.linkedin.com/in/nimalan-parameswaran" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+  <a href="mailto:nimalan936@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+</p>
