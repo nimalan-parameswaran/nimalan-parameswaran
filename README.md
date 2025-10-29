@@ -34,4 +34,5 @@
   <a href="https://www.linkedin.com/in/nimalan-parameswaran" target="_blank"><img src="https://skillicons.dev/icons?i=linkedin" /></a>
   <a href="https://x.com/Nimalan49032055" target="_blank"><img src="https://skillicons.dev/icons?i=twitter" /></a>
   <a href="https://www.instagram.com/nimalan.__/" target="_blank"><img src="https://skillicons.dev/icons?i=instagram" /></a>
+  <a href="https://discord.com/users/1085218034756628561" target="_blank"><img src="https://skillicons.dev/icons?i=discord" /></a>
 </p>
