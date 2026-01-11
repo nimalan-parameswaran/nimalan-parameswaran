@@ -4,8 +4,10 @@
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=28&duration=2000&pause=800&center=true&vCenter=true&width=750&lines=Hello,+I'm+Nimalan+Parameswaran;Vannakkam,+I'm+Nimalan+Parameswaran;Hola,+I'm+Nimalan+Parameswaran;Salam,+I'm+Nimalan+Parameswaran;Hanji,+I'm+Nimalan+Parameswaran;Bonjour,+I'm+Nimalan+Parameswaran;Ciao,+I'm+Nimalan+Parameswaran;Aloha,+I'm+Nimalan+Parameswaran;Ahlan+Wa+Sahlan,+I'm+Nimalan+Parameswaran;Namaste,+I'm+Nimalan+Parameswaran;Namaskaram,+I'm+Nimalan+Parameswaran;Namaskara,+I'm+Nimalan+Parameswaran;Nomoshkar,+I'm+Nimalan+Parameswaran;Adaab,+I'm+Nimalan+Parameswaran;Khurumjari,+I'm+Nimalan+Parameswaran;Johar,+I'm+Nimalan+Parameswaran;Kem+Cho,+I'm+Nimalan+Parameswaran;Sat+Sri+Akal,+I'm+Nimalan+Parameswaran;Privet,+I'm+Nimalan+Parameswaran;Konnichiwa,+I'm+Nimalan+Parameswaran;Annyeong,+I'm+Nimalan+Parameswaran;Ni+Hao,+I'm+Nimalan+Parameswaran;Sawubona,+I'm+Nimalan+Parameswaran;Merhaba,+I'm+Nimalan+Parameswaran;Olá,+I'm+Nimalan+Parameswaran;Shalom,+I'm+Nimalan+Parameswaran;Hallo,+I'm+Nimalan+Parameswaran;Selamat,+I'm+Nimalan+Parameswaran;Xin+Chào,+I'm+Nimalan+Parameswaran;Kumusta,+I'm+Nimalan+Parameswaran;Hej,+I'm+Nimalan+Parameswaran;Jambo,+I'm+Nimalan+Parameswaran;Szia,+I'm+Nimalan+Parameswaran;Talofa,+I'm+Nimalan+Parameswaran;God+Dag,+I'm+Nimalan+Parameswaran" alt="Global Hello Animation" />
 </h1>
 
-<h3 align="center">Aspiring Data Scientist | AI & ML Enthusiast | Researcher</h3>
-<h6 align="center">Hello, I am Nimalan :)</h6>
+<h3 align="center">Aspiring AI/ML Researcher</h3>
+<h5 align="center">
+I am a technology enthusiast with a deep passion for artificial intelligence and its real-world application. I actively work on machine learning and computer vision projects, and I participate in technical challenges that strengthen analytical thinking and discipline. I value continuous learning through hands-on experimentation and research. My focus is on applying AI responsibly to address real problems, delivering measurable outcomes through technology-driven initiatives grounded in ethical practice.
+</h5>
 
 <div align="center">
   <a href="https://drive.google.com/file/d/1n0TkmJeC0SaTTlukXLyXc91V_6RkXaeW/view?usp=sharing" target="_blank">
