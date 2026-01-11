@@ -5,7 +5,7 @@
 </h1>
 
 <h3 align="center">Aspiring Data Scientist | AI & ML Enthusiast | Researcher</h3>
-<h6 align="center">Hello, I am Nimalan P, an aspiring Data Scientist based in India. I work on AI & ML projects, predictive modeling, and data analysis. I enjoy building research-driven solutions and contributing to collaborative projects. Feel free to connect with me to discuss projects, internships, or mentorship opportunities.</h6>
+<h6 align="center">Hello, I am Nimalan :)</h6>
 
 <div align="center">
   <a href="https://drive.google.com/file/d/1n0TkmJeC0SaTTlukXLyXc91V_6RkXaeW/view?usp=sharing" target="_blank">
