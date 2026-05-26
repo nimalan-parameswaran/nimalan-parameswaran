@@ -6,12 +6,12 @@
 
 <h3 align="center">Aspiring AI/ML Researcher</h3>
 <h5 align="center">
-I am a technology enthusiast with a deep passion for artificial intelligence and its real-world application. I actively work on machine learning and computer vision projects, and I participate in technical challenges that strengthen analytical thinking and discipline. I value continuous learning through hands-on experimentation and research. My focus is on applying AI responsibly to address real problems, delivering measurable outcomes through technology-driven initiatives grounded in ethical practice.
+<!-- I am a technology enthusiast with a deep passion for artificial intelligence and its real-world application. I actively work on machine learning and computer vision projects, and I participate in technical challenges that strengthen analytical thinking and discipline. I value continuous learning through hands-on experimentation and research. My focus is on applying AI responsibly to address real problems, delivering measurable outcomes through technology-driven initiatives grounded in ethical practice. -->
 </h5>
 
 <div align="center">
   <a href="https://drive.google.com/file/d/1n0TkmJeC0SaTTlukXLyXc91V_6RkXaeW/view?usp=sharing" target="_blank">
-    <img src="https://img.shields.io/badge/Resume-Download-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Download Resume">
+    <!-- <img src="https://img.shields.io/badge/Resume-Download-blue?style=for-the-badge&logo=adobeacrobatreader" alt="Download Resume"> -->
   </a>
 </div>
 
@@ -27,9 +27,10 @@ I am a technology enthusiast with a deep passion for artificial intelligence and
   <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=nimalan-parameswaran&layout=compact&langs_count=8&theme=algolia"/>
 </a>
 </p>
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=nimalan-parameswaran&custom_title=%20Contribution%20Graph&theme=react-dark&hide_border=true&area=true" alt="Activity Graph" />
+</p>
 
-
----
 <h3 align="center">Connect With Me</h3>
 <p align="center">
   <a href="mailto:nimalan936@gmail.com"><img src="https://skillicons.dev/icons?i=gmail" /></a>
