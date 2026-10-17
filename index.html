@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b1a">
+  <title>Space Shooter — Nimalan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Space Shooter home">✦ SPACE//SHOOTER</a>
+      <div class="stats" aria-live="polite">
+        <span>SCORE <b id="score">000000</b></span>
+        <span>BEST <b id="best">000000</b></span>
+        <span>LIVES <b id="lives">3</b></span>
+      </div>
+    </header>
+
+    <section class="game-panel" aria-label="Space Shooter game">
+      <canvas id="game" width="900" height="600" aria-label="Space shooter play area"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="overlay-card">
+          <p class="eyebrow">INCOMING TRANSMISSION</p>
+          <h1 id="overlay-title">DEFEND THE GALAXY</h1>
+          <p id="overlay-copy">Move your ship, dodge enemy fire, and survive for as long as you can.</p>
+          <button id="start-button" type="button">START MISSION</button>
+          <small>Keyboard: ← → / A D to move · SPACE to fire · P to pause</small>
+          <small class="mobile-hint">Touch: drag to move · tap FIRE to shoot</small>
+        </div>
+      </div>
+      <div class="touch-controls" aria-label="Touch controls">
+        <button id="fire-button" type="button">FIRE</button>
+      </div>
+    </section>
+
+    <footer>
+      <span>ONE PILOT. INFINITE SPACE.</span>
+      <span>Built with HTML · CSS · JavaScript</span>
+    </footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
