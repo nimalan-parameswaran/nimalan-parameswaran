@@ -3,162 +3,202 @@
   const ctx = canvas.getContext('2d');
   const scoreEl = document.getElementById('score');
   const bestEl = document.getElementById('best');
-  const livesEl = document.getElementById('lives');
+  const levelEl = document.getElementById('level');
   const overlay = document.getElementById('overlay');
   const overlayTitle = document.getElementById('overlay-title');
   const overlayCopy = document.getElementById('overlay-copy');
   const startButton = document.getElementById('start-button');
-  const fireButton = document.getElementById('fire-button');
-
-  const W = canvas.width, H = canvas.height;
-  const keys = new Set();
-  let player, bullets, enemies, particles, stars, score, lives, running, paused, lastShot, spawnClock, lastTime, pointerDown;
-  let best = Number(localStorage.getItem('spaceShooterBest') || 0);
+  const flapButton = document.getElementById('fire-button');
+  const funnyMessage = document.getElementById('funny-message');
+  const W = canvas.width;
+  const H = canvas.height;
+  const groundHeight = 56;
+  const catImage = new Image();
+  catImage.src = 'cat.png';
+  const themes = [
+    { skyTop: '#70d6ff', skyBottom: '#d9f7ff', cloud: '#ffffffaa', pipe: '#38b764', pipeDark: '#247d48', ground: '#a8df68', grass: '#6eaf45', bird: '#ffcf4a', accent: '#ff7b54', name: 'SUNNY MEADOW' },
+    { skyTop: '#25145e', skyBottom: '#713b8f', cloud: '#e8c7ff66', pipe: '#b95cff', pipeDark: '#7436b0', ground: '#34305f', grass: '#5b55a5', bird: '#65e6ff', accent: '#ff73c7', name: 'NEON TWILIGHT' },
+    { skyTop: '#ff9a76', skyBottom: '#ffd47e', cloud: '#fff0c766', pipe: '#d95d4c', pipeDark: '#923a43', ground: '#7c4d3c', grass: '#b5794c', bird: '#fff176', accent: '#ff4d6d', name: 'SUNSET CANYON' },
+    { skyTop: '#102a43', skyBottom: '#486581', cloud: '#d9f3ff44', pipe: '#43aa8b', pipeDark: '#237060', ground: '#263238', grass: '#4f8a78', bird: '#ff9f1c', accent: '#2ec4b6', name: 'MOONLIT MARSH' }
+  ];
+  let player, pipes, particles, meowBubbles, score, best, level, running, paused, lastTime, pipeClock, scroll, flapQueued, launchTimer;
+  const failMessages = ['The cat discovered gravity.', 'Pipe boop! Try again, whiskers.', 'That was a very dramatic landing.', 'The sky said: not today, cat.', 'Nine lives remain... probably.'];
+  const levelMessages = ['Purr-fect start!', 'Whoa, fancy whiskers!', 'This cat has turbo paws!', 'The cat is now legally a cloud.'];
+  best = Number(localStorage.getItem('flappyFlightBest') || 0);
   bestEl.textContent = format(best);
 
-  function format(n) { return String(n).padStart(6, '0'); }
+  function format(value) { return String(value).padStart(6, '0'); }
+  function theme() { return themes[(level - 1) % themes.length]; }
+  function updateHud() {
+    scoreEl.textContent = format(score);
+    levelEl.textContent = level;
+    document.body.dataset.theme = (level - 1) % themes.length;
+    document.documentElement.style.setProperty('--accent', theme().accent);
+    document.documentElement.style.setProperty('--accent-soft', `${theme().accent}22`);
+  }
   function reset() {
-    player = { x: W / 2, y: H - 72, w: 34, h: 38, speed: 370, invulnerable: 0 };
-    bullets = []; enemies = []; particles = [];
-    score = 0; lives = 3; running = true; paused = false;
-    lastShot = 0; spawnClock = 0; lastTime = performance.now();
-    scoreEl.textContent = format(score); livesEl.textContent = lives;
-    overlay.classList.add('hidden');
-    requestAnimationFrame(loop);
+    player = { x: 215, y: H / 2, radius: 22, velocity: 0, rotation: 0 };
+    pipes = []; particles = []; meowBubbles = []; score = 0; level = 1; scroll = 0;
+    pipeClock = .55; launchTimer = 1.35; running = true; paused = false; flapQueued = false; lastTime = performance.now();
+    funnyMessage.textContent = 'Purr-powered and ready!';
+    updateHud(); overlay.classList.add('hidden'); requestAnimationFrame(loop);
   }
   function endGame() {
     running = false;
-    if (score > best) {
-      best = score; localStorage.setItem('spaceShooterBest', String(best));
-      bestEl.textContent = format(best);
-    }
-    overlayTitle.textContent = 'MISSION COMPLETE';
-    overlayCopy.textContent = `Final score: ${score}. ${score >= best ? 'A new personal best!' : 'Ready for another run?'}`;
-    startButton.textContent = 'PLAY AGAIN';
+    if (score > best) { best = score; localStorage.setItem('flappyFlightBest', String(best)); bestEl.textContent = format(best); }
+    overlayTitle.textContent = 'FLIGHT OVER';
+    overlayCopy.textContent = `${failMessages[Math.floor(Math.random() * failMessages.length)]} You cleared ${score} pipes.`;
+    startButton.textContent = 'TRY AGAIN, MEOW';
+    funnyMessage.textContent = 'Emergency snack break!';
     overlay.classList.remove('hidden');
   }
-  function spawnEnemy() {
-    const size = 22 + Math.random() * 17;
-    enemies.push({ x: 30 + Math.random() * (W - 60), y: -size, r: size / 2, speed: 75 + Math.random() * 70 + score * 0.015, drift: (Math.random() - 0.5) * 85, phase: Math.random() * 6 });
+  function flap() {
+    if (!running) return;
+    player.velocity = -425;
+    launchTimer = 0;
+    meowBubbles.push({ x: player.x + 20, y: player.y - 22, life: 1, max: 1, drift: 24 });
+    funnyMessage.textContent = ['Flap flap hooray!', 'Mind the whiskers!', 'Meow-ving!', 'Up we go!'][Math.floor(Math.random() * 4)];
   }
-  function burst(x, y, color, count = 12) {
+  function burst(x, y, color, count) {
     for (let i = 0; i < count; i++) {
-      const a = Math.random() * Math.PI * 2, speed = 45 + Math.random() * 180;
-      particles.push({ x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, life: .35 + Math.random() * .45, max: .8, color, r: 1 + Math.random() * 3 });
+      const angle = Math.PI + (Math.random() - .5) * 1.4;
+      const speed = 25 + Math.random() * 70;
+      particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: .3 + Math.random() * .25, color });
     }
   }
-  function shoot(now) {
-    if (now - lastShot < 190) return;
-    lastShot = now;
-    bullets.push({ x: player.x, y: player.y - 22, vy: -560, r: 4 });
-    particles.push({ x: player.x, y: player.y - 24, vx: (Math.random() - .5) * 35, vy: -70, life: .12, max: .12, color: '#63f5ff', r: 3 });
+  function addPipe() {
+    const gap = Math.max(132, 184 - level * 7);
+    const margin = 72;
+    const center = margin + gap / 2 + Math.random() * (H - groundHeight - margin * 2 - gap);
+    pipes.push({ x: W + 45, width: 76, gapTop: center - gap / 2, gapBottom: center + gap / 2, passed: false });
   }
-  function hitPlayer() {
-    if (player.invulnerable > 0) return;
-    lives--; livesEl.textContent = lives; player.invulnerable = 1.3;
-    burst(player.x, player.y, '#ff4d9d', 22);
-    if (lives <= 0) endGame();
-  }
-  function update(dt, now) {
+  function update(dt) {
     if (paused) return;
-    const left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A');
-    const right = keys.has('ArrowRight') || keys.has('d') || keys.has('D');
-    if (left) player.x -= player.speed * dt;
-    if (right) player.x += player.speed * dt;
-    player.x = Math.max(25, Math.min(W - 25, player.x));
-    if (keys.has(' ') || keys.has('Spacebar') || pointerDown) shoot(now);
-    player.invulnerable = Math.max(0, player.invulnerable - dt);
-
-    spawnClock += dt;
-    const interval = Math.max(.32, .85 - score / 1800);
-    if (spawnClock >= interval) { spawnClock = 0; spawnEnemy(); }
-    bullets.forEach(b => b.y += b.vy * dt);
-    bullets = bullets.filter(b => b.y > -20);
-    enemies.forEach(e => { e.y += e.speed * dt; e.x += Math.sin(now / 400 + e.phase) * e.drift * dt; });
-    for (const e of enemies) {
-      if (Math.abs(e.x - player.x) < e.r + 14 && Math.abs(e.y - player.y) < e.r + 15) {
-        e.dead = true; hitPlayer();
-      } else if (e.y > H + 25) { e.dead = true; hitPlayer(); }
+    if (flapQueued) { flap(); flapQueued = false; }
+    const speed = 190 + (level - 1) * 16;
+    scroll += speed * dt;
+    pipeClock -= dt;
+    if (pipeClock <= 0) { addPipe(); pipeClock = Math.max(.95, 1.45 - level * .035); }
+    if (launchTimer > 0) {
+      launchTimer -= dt;
+      player.velocity = 0;
+      player.y = H / 2;
+    } else {
+      player.velocity += 1100 * dt;
+      player.y += player.velocity * dt;
     }
-    for (const b of bullets) {
-      for (const e of enemies) {
-        if (e.dead || b.dead) continue;
-        const dx = b.x - e.x, dy = b.y - e.y;
-        if (dx * dx + dy * dy < (e.r + b.r) ** 2) {
-          e.dead = true; b.dead = true; score += 100;
-          scoreEl.textContent = format(score); burst(e.x, e.y, '#ff4d9d', 14);
-        }
+    player.rotation = Math.max(-.45, Math.min(1.25, player.velocity / 500));
+    pipes.forEach(pipe => {
+      pipe.x -= speed * dt;
+      if (!pipe.passed && pipe.x + pipe.width < player.x) {
+        pipe.passed = true; score++;
+        level = 1 + Math.floor(score / 5);
+        updateHud();
+        funnyMessage.textContent = levelMessages[(level - 1) % levelMessages.length];
+        burst(player.x, player.y, theme().accent, 8);
       }
-    }
-    enemies = enemies.filter(e => !e.dead);
-    bullets = bullets.filter(b => !b.dead);
-    particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; p.vy *= .98; p.life -= dt; });
+    });
+    pipes = pipes.filter(pipe => pipe.x + pipe.width > -20);
+    particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 80 * dt; p.life -= dt; });
     particles = particles.filter(p => p.life > 0);
+    meowBubbles.forEach(bubble => { bubble.y -= bubble.drift * dt; bubble.life -= dt; });
+    meowBubbles = meowBubbles.filter(bubble => bubble.life > 0);
+    const hitGround = player.y + player.radius >= H - groundHeight;
+    const hitCeiling = player.y - player.radius <= 0;
+    const hitPipe = pipes.some(pipe => {
+      const overlapsX = player.x + player.radius > pipe.x && player.x - player.radius < pipe.x + pipe.width;
+      return overlapsX && (player.y - player.radius < pipe.gapTop || player.y + player.radius > pipe.gapBottom);
+    });
+    if (hitGround || hitCeiling || hitPipe) endGame();
   }
-  function drawShip(x, y) {
-    ctx.save(); ctx.translate(x, y);
-    ctx.shadowBlur = 18; ctx.shadowColor = '#63f5ff';
-    ctx.fillStyle = '#63f5ff'; ctx.beginPath();
-    ctx.moveTo(0, -23); ctx.lineTo(17, 16); ctx.lineTo(5, 11); ctx.lineTo(0, 17); ctx.lineTo(-5, 11); ctx.lineTo(-17, 16); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = '#f8ffff'; ctx.beginPath(); ctx.moveTo(0, -13); ctx.lineTo(5, 5); ctx.lineTo(-5, 5); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = '#ff4d9d'; ctx.fillRect(-4, 17, 8, 8 + Math.random() * 7);
+  function drawCloud(x, y, scale) {
+    const t = theme();
+    ctx.fillStyle = t.cloud; ctx.beginPath();
+    ctx.arc(x, y, 22 * scale, 0, Math.PI * 2);
+    ctx.arc(x + 25 * scale, y - 10 * scale, 30 * scale, 0, Math.PI * 2);
+    ctx.arc(x + 58 * scale, y, 22 * scale, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  function drawBird() {
+    const t = theme();
+    ctx.save(); ctx.translate(player.x, player.y + (launchTimer > 0 ? Math.sin(performance.now() / 180) * 5 : 0)); ctx.rotate(player.rotation);
+    const size = 48;
+    ctx.shadowBlur = 12; ctx.shadowColor = '#ffffff99';
+    if (catImage.complete && catImage.naturalWidth > 0) {
+      ctx.beginPath();
+      ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(catImage, -size / 2, -size / 2, size, size);
+    } else {
+      ctx.fillStyle = t.bird;
+      ctx.beginPath(); ctx.arc(0, 0, size / 2, 0, Math.PI * 2); ctx.fill();
+    }
     ctx.restore();
   }
+  function drawPipe(pipe) {
+    const t = theme();
+    ctx.shadowBlur = 10; ctx.shadowColor = t.pipeDark; ctx.fillStyle = t.pipe;
+    ctx.fillRect(pipe.x, 0, pipe.width, pipe.gapTop);
+    ctx.fillRect(pipe.x, pipe.gapBottom, pipe.width, H - groundHeight - pipe.gapBottom);
+    ctx.fillStyle = t.pipeDark;
+    ctx.fillRect(pipe.x - 6, pipe.gapTop - 22, pipe.width + 12, 22);
+    ctx.fillRect(pipe.x - 6, pipe.gapBottom, pipe.width + 12, 22);
+    ctx.shadowBlur = 0; ctx.fillStyle = '#ffffff33';
+    ctx.fillRect(pipe.x + 10, 0, 7, pipe.gapTop - 22);
+    ctx.fillRect(pipe.x + 10, pipe.gapBottom + 22, 7, H - groundHeight - pipe.gapBottom - 22);
+  }
   function draw(now) {
-    ctx.clearRect(0, 0, W, H);
-    const bg = ctx.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#080b1a'); bg.addColorStop(1, '#11183a'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-    for (let i = 0; i < 95; i++) {
-      const x = (i * 127.7) % W, y = ((i * 83.3 + now * (0.012 + (i % 4) * .009)) % H);
-      ctx.globalAlpha = .3 + (i % 5) * .12; ctx.fillStyle = i % 9 === 0 ? '#ff4d9d' : '#bfeeff';
-      ctx.fillRect(x, y, i % 7 === 0 ? 2 : 1, i % 7 === 0 ? 2 : 1);
-    }
-    ctx.globalAlpha = 1;
-    bullets.forEach(b => { ctx.shadowBlur = 14; ctx.shadowColor = '#63f5ff'; ctx.fillStyle = '#cfffff'; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill(); });
-    ctx.shadowBlur = 0;
-    enemies.forEach(e => {
-      ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(Math.sin(now / 500 + e.phase) * .2);
-      ctx.shadowBlur = 15; ctx.shadowColor = '#ff4d9d'; ctx.fillStyle = '#ff4d9d';
-      ctx.beginPath(); ctx.moveTo(-e.r, -e.r * .45); ctx.lineTo(-e.r * .4, -e.r); ctx.lineTo(e.r * .35, -e.r * .8); ctx.lineTo(e.r, -e.r * .1); ctx.lineTo(e.r * .65, e.r); ctx.lineTo(-e.r * .65, e.r); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = '#fff'; ctx.fillRect(-e.r * .45, -2, 4, 4); ctx.fillRect(e.r * .2, -2, 4, 4); ctx.restore();
+    const t = theme();
+    const gradient = ctx.createLinearGradient(0, 0, 0, H);
+    gradient.addColorStop(0, t.skyTop); gradient.addColorStop(1, t.skyBottom);
+    ctx.fillStyle = gradient; ctx.fillRect(0, 0, W, H);
+    drawCloud((W - (scroll * .12) % (W + 180)) % (W + 180), 115, 1.15);
+    drawCloud((W - (scroll * .08 + 260) % (W + 220)) % (W + 220), 235, .75);
+    pipes.forEach(drawPipe);
+    particles.forEach(p => { ctx.globalAlpha = Math.max(0, p.life / .55); ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill(); });
+    meowBubbles.forEach(bubble => {
+      const alpha = Math.max(0, bubble.life / bubble.max);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 14px Space Mono';
+      ctx.textAlign = 'center';
+      ctx.fillText('MEOW!', bubble.x, bubble.y);
     });
-    particles.forEach(p => { ctx.globalAlpha = Math.max(0, p.life / p.max); ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); });
-    ctx.globalAlpha = 1;
-    if (player && (player.invulnerable <= 0 || Math.floor(now / 90) % 2 === 0)) drawShip(player.x, player.y);
+    ctx.globalAlpha = 1; drawBird();
+    ctx.fillStyle = t.ground; ctx.fillRect(0, H - groundHeight, W, groundHeight);
+    ctx.fillStyle = t.grass;
+    for (let x = -((scroll * .8) % 28); x < W; x += 28) ctx.fillRect(x, H - groundHeight, 18, 7);
+    ctx.fillStyle = '#ffffffaa'; ctx.font = '700 12px Space Mono'; ctx.textAlign = 'center';
+    ctx.fillText(t.name, W / 2, 28);
+    if (launchTimer > 0 && running) {
+      ctx.fillStyle = '#ffffffcc'; ctx.font = '700 13px Space Mono';
+      ctx.fillText('GET READY, KITTY', W / 2, H / 2 - 48);
+    }
     if (paused && running) {
-      ctx.fillStyle = '#050817bb'; ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = '#63f5ff'; ctx.font = '700 34px Orbitron, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('PAUSED', W / 2, H / 2);
+      ctx.fillStyle = '#07142699'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#fff'; ctx.font = '700 34px Orbitron, sans-serif'; ctx.fillText('PAUSED', W / 2, H / 2);
     }
   }
   function loop(now) {
     if (!running) return;
     const dt = Math.min((now - lastTime) / 1000, .035); lastTime = now;
-    update(dt, now); draw(now);
+    update(dt); draw(now);
     if (running) requestAnimationFrame(loop);
   }
-  function togglePause() { if (!running) return; paused = !paused; }
+  function queueFlap() {
+    if (!running) return;
+    if (paused) { paused = false; return; }
+    flapQueued = true;
+  }
   startButton.addEventListener('click', reset);
+  canvas.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
+  flapButton.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
   window.addEventListener('keydown', e => {
-    if (['ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
-    keys.add(e.key);
-    if (e.key.toLowerCase() === 'p') togglePause();
+    if ([' ', 'ArrowUp'].includes(e.key)) { e.preventDefault(); queueFlap(); }
+    if (e.key.toLowerCase() === 'p' && running) paused = !paused;
     if (e.key === 'Enter' && !running) reset();
   });
-  window.addEventListener('keyup', e => keys.delete(e.key));
-  window.addEventListener('blur', () => keys.clear());
-  canvas.addEventListener('pointerdown', e => {
-    if (!player || !running) return;
-    canvas.setPointerCapture(e.pointerId); pointerDown = true;
-    const rect = canvas.getBoundingClientRect(); player.x = (e.clientX - rect.left) / rect.width * W;
-  });
-  canvas.addEventListener('pointermove', e => {
-    if (!player || !running || !(e.buttons || e.pointerType === 'touch')) return;
-    const rect = canvas.getBoundingClientRect(); player.x = (e.clientX - rect.left) / rect.width * W;
-  });
-  window.addEventListener('pointerup', () => { pointerDown = false; });
-  fireButton.addEventListener('pointerdown', e => { e.preventDefault(); pointerDown = true; });
-  window.addEventListener('pointerup', () => { pointerDown = false; });
-  // Draw an attractive title screen before the first mission.
-  player = { x: W / 2, y: H - 72, invulnerable: 0 };
-  bullets = []; enemies = []; particles = []; running = false;
-  draw(0);
+  player = { x: 215, y: H / 2, radius: 22, velocity: 0, rotation: 0 };
+  pipes = []; particles = []; meowBubbles = []; score = 0; level = 1; running = false; paused = false; scroll = 0;
+  launchTimer = 0; updateHud(); draw(0);
 })();
