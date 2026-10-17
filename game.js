@@ -53,6 +53,18 @@
     document.documentElement.style.setProperty('--accent', theme().accent);
     document.documentElement.style.setProperty('--accent-soft', `${theme().accent}22`);
   }
+  async function requestLandscape() {
+    try {
+      if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      }
+      if (screen.orientation && screen.orientation.lock) {
+        await screen.orientation.lock('landscape');
+      }
+    } catch (error) {
+      if (!(error instanceof DOMException && ['NotAllowedError', 'SecurityError', 'TypeError'].includes(error.name))) throw error;
+    }
+  }
   function reset() {
     player = { x: 215, y: H / 2, radius: 22, velocity: 0, rotation: 0 };
     pipes = []; particles = []; meowBubbles = []; score = 0; level = 1; scroll = 0;
@@ -205,7 +217,7 @@
     if (paused) { paused = false; return; }
     flapQueued = true;
   }
-  startButton.addEventListener('click', reset);
+  startButton.addEventListener('click', () => { requestLandscape(); reset(); });
   canvas.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
   flapButton.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
   window.addEventListener('keydown', e => {
