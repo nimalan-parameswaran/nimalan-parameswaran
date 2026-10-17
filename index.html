@@ -34,11 +34,16 @@
     <section class="game-panel" aria-label="Cat Sky Adventure game">
       <canvas id="game" width="1100" height="620" aria-label="Cat flight play area"></canvas>
       <div class="overlay" id="overlay">
-        <div class="overlay-card">
+        <div class="overlay-card" id="overlay-card">
           <p class="eyebrow">MEOW-COME ABOARD</p>
           <img class="hero-logo" src="cat.png" alt="Cat pilot logo" width="104" height="104">
+          <img class="loss-gif" id="loss-gif" src="smile.gif" alt="Smiling reaction">
           <h1 id="overlay-title">FLAPPY FLIGHT</h1>
           <p id="overlay-copy">Help this very serious cat dodge pipes and collect snacks.</p>
+          <div class="loss-summary" id="loss-summary" aria-live="polite">
+            <span>CURRENT SCORE <b id="loss-score">000000</b></span>
+            <span>HIGHEST SCORE <b id="loss-best">000000</b></span>
+          </div>
           <button id="start-button" type="button">LET'S MEOW!</button>
           <small>Click, tap, SPACE, or ↑ to flap · P pauses</small>
           <small class="mobile-hint">Tap anywhere to flap</small>

@@ -54,6 +54,12 @@ canvas { display: block; width: 100%; max-width: 100%; height: auto; aspect-rati
 .overlay-card { width: min(100%, 500px); max-height: 100%; overflow: auto; padding: 34px 30px; text-align: center; border: 1px solid #ffffff25; border-radius: 16px; background: #0b1729dd; box-shadow: 0 20px 60px #00000044; }
 .eyebrow { margin: 0; color: var(--accent); font: 700 10px 'Space Mono', monospace; letter-spacing: 3px; }
 .hero-logo { display: block; width: 104px; height: 104px; margin: 18px auto 2px; border: 3px solid #ffffffaa; border-radius: 50%; object-fit: cover; filter: drop-shadow(0 10px 20px #0005); }
+.loss-gif, .loss-summary { display: none; }
+.overlay-card.loss-state .hero-logo { display: none; }
+.overlay-card.loss-state .loss-gif { display: block; width: 88px; height: 88px; margin: 0 auto 10px; border: 2px solid #ffffffaa; border-radius: 50%; object-fit: cover; }
+.overlay-card.loss-state .loss-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px auto 0; max-width: 360px; }
+.loss-summary span { padding: 10px 8px; border: 1px solid #ffffff20; border-radius: 9px; color: var(--muted); background: #ffffff0a; font: 700 9px/1.35 'Space Mono', monospace; }
+.loss-summary b { display: block; margin-top: 5px; color: var(--ink); font-size: 16px; }
 h1 { margin: 14px 0 10px; font: 700 clamp(28px, 5vw, 48px) 'DM Sans', sans-serif; letter-spacing: -1.5px; line-height: 1.05; }
 .overlay-card p:not(.eyebrow) { margin: 0 auto; max-width: 380px; color: #bdcce0; font-size: 14px; line-height: 1.65; }
 button { cursor: pointer; min-height: 44px; color: #06111d; background: var(--accent); border: 0; border-radius: 9px; padding: 14px 22px; font: 700 11px 'Space Mono', monospace; letter-spacing: 1px; box-shadow: 0 8px 24px #63f5ff33; transition: transform .2s ease, filter .2s ease; touch-action: manipulation; }
@@ -88,6 +94,10 @@ footer { margin-top: 16px; color: #8195b3; font: 9px 'Space Mono', monospace; le
   .overlay { padding: 12px; }
   .overlay-card { padding: 26px 17px; }
   .hero-logo { width: 78px; height: 78px; margin-top: 12px; }
+  .overlay-card.loss-state .loss-gif { width: 68px; height: 68px; }
+  .overlay-card.loss-state .loss-summary { margin-top: 12px; }
+  .loss-summary span { padding: 8px 4px; font-size: 8px; }
+  .loss-summary b { font-size: 14px; }
   .overlay-card button { margin-top: 16px; }
   .touch-controls { inset: auto 10px 10px; }
   .touch-controls button { width: 64px; height: 64px; font-size: 10px; }
@@ -105,6 +115,7 @@ footer { margin-top: 16px; color: #8195b3; font: 9px 'Space Mono', monospace; le
   .overlay { padding: 10px; }
   .overlay-card { padding: 16px 22px; }
   .hero-logo { width: 60px; height: 60px; margin-top: 8px; }
+  .overlay-card.loss-state .loss-gif { width: 56px; height: 56px; margin-bottom: 4px; }
   h1 { margin: 8px 0 6px; font-size: clamp(24px, 5vw, 36px); }
   .overlay-card button { margin: 10px 0 4px; }
   .overlay-card small { margin-top: 4px; }

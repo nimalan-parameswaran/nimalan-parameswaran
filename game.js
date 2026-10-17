@@ -5,8 +5,12 @@
   const bestEl = document.getElementById('best');
   const levelEl = document.getElementById('level');
   const overlay = document.getElementById('overlay');
+  const overlayCard = document.getElementById('overlay-card');
   const overlayTitle = document.getElementById('overlay-title');
   const overlayCopy = document.getElementById('overlay-copy');
+  const lossGif = document.getElementById('loss-gif');
+  const lossScoreEl = document.getElementById('loss-score');
+  const lossBestEl = document.getElementById('loss-best');
   const startButton = document.getElementById('start-button');
   const flapButton = document.getElementById('fire-button');
   const funnyMessage = document.getElementById('funny-message');
@@ -79,6 +83,10 @@
     pipes = []; particles = []; meowBubbles = []; score = 0; level = 1; scroll = 0;
     pipeClock = .55; launchTimer = 1.35; running = true; paused = false; flapQueued = false; lastTime = performance.now();
     funnyMessage.textContent = 'Purr-powered and ready!';
+    overlayTitle.textContent = 'FLAPPY FLIGHT';
+    overlayCopy.textContent = 'Help this very serious cat dodge pipes and collect snacks.';
+    startButton.textContent = "LET'S MEOW!";
+    overlayCard.classList.remove('loss-state');
     updateHud(); overlay.classList.add('hidden'); requestAnimationFrame(loop);
   }
   function endGame() {
@@ -86,6 +94,10 @@
     if (score > best) { best = score; saveBest(best); bestEl.textContent = format(best); }
     overlayTitle.textContent = 'FLIGHT OVER';
     overlayCopy.textContent = `${failMessages[Math.floor(Math.random() * failMessages.length)]} You cleared ${score} pipes.`;
+    lossScoreEl.textContent = format(score);
+    lossBestEl.textContent = format(best);
+    lossGif.src = `smile.gif?loss=${Date.now()}`;
+    overlayCard.classList.add('loss-state');
     startButton.textContent = 'TRY AGAIN, MEOW';
     funnyMessage.textContent = 'Emergency snack break!';
     overlay.classList.remove('hidden');
