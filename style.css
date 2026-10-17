@@ -109,7 +109,7 @@ footer { margin-top: 16px; color: #8195b3; font: 9px 'Space Mono', monospace; le
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
-@media (pointer: coarse) and (orientation: portrait) and (max-width: 700px) {
+@media (pointer: coarse) and (orientation: portrait) {
   body { display: block; padding: 0; }
   .shell { display: none; }
   .orientation-notice {

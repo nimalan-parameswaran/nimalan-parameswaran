@@ -54,15 +54,24 @@
     document.documentElement.style.setProperty('--accent-soft', `${theme().accent}22`);
   }
   async function requestLandscape() {
+    const isExpectedOrientationError = error => error instanceof DOMException
+      && ['NotAllowedError', 'SecurityError', 'TypeError', 'InvalidStateError'].includes(error.name);
     try {
-      if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      }
       if (screen.orientation && screen.orientation.lock) {
         await screen.orientation.lock('landscape');
       }
     } catch (error) {
-      if (!(error instanceof DOMException && ['NotAllowedError', 'SecurityError', 'TypeError'].includes(error.name))) throw error;
+      if (!isExpectedOrientationError(error)) throw error;
+    }
+    try {
+      if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock('landscape');
+        }
+      }
+    } catch (error) {
+      if (!isExpectedOrientationError(error)) throw error;
     }
   }
   function reset() {
@@ -218,8 +227,8 @@
     flapQueued = true;
   }
   startButton.addEventListener('click', () => { requestLandscape(); reset(); });
-  canvas.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
-  flapButton.addEventListener('pointerdown', e => { e.preventDefault(); queueFlap(); });
+  canvas.addEventListener('pointerdown', e => { e.preventDefault(); requestLandscape(); queueFlap(); });
+  flapButton.addEventListener('pointerdown', e => { e.preventDefault(); requestLandscape(); queueFlap(); });
   window.addEventListener('keydown', e => {
     if ([' ', 'ArrowUp'].includes(e.key)) { e.preventDefault(); queueFlap(); }
     if (e.key.toLowerCase() === 'p' && running) paused = !paused;
@@ -228,4 +237,5 @@
   player = { x: 215, y: H / 2, radius: 22, velocity: 0, rotation: 0 };
   pipes = []; particles = []; meowBubbles = []; score = 0; level = 1; running = false; paused = false; scroll = 0;
   launchTimer = 0; updateHud(); draw(0);
+  requestLandscape();
 })();
