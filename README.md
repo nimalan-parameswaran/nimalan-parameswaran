@@ -1,4 +1,4 @@
-[Play Flappy Bird](https://nimalan-parameswaran.github.io/nimalan-parameswaran/)
+[Play Cat Sky Adventure](https://nimalan-parameswaran.github.io/nimalan-parameswaran/)
 <!doctype html>
 <html lang="en">
 <head>
